@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!--
+    ✅ Simple single-file blog post for GitHub Pages
+    - Drop this as index.html (or <post-slug>.html) into your repo
+    - Customize the META, JSON-LD, and the article content below
+  -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Post Title · Your Name</title>
+  <meta name="description" content="One-sentence summary of the post for SEO and link previews." />
+  <link rel="canonical" href="https://your-username.github.io/your-repo/" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Your Post Title" />
+  <meta property="og:description" content="One-sentence summary of the post." />
+  <meta property="og:url" content="https://your-username.github.io/your-repo/" />
+  <meta property="og:image" content="https://your-username.github.io/your-repo/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:creator" content="@yourhandle" />
+
+  <!-- Favicon (optional) -->
+  <link rel="icon" href="/favicon.ico" />
+
+  <style>
+    /* --- Design tokens --- */
+    :root {
+      --bg: #ffffff;
+      --text: #0f172a; /* slate-900 */
+      --muted: #475569; /* slate-600 */
+      --link: #2563eb; /* blue-600 */
+      --border: #e2e8f0; /* slate-200 */
+      --code-bg: #0b1020; /* near-navy for code */
+      --code-text: #e5e7eb; /* gray-200 */
+      --quote: #f8fafc; /* slate-50 */
+      --accent: #f59e0b; /* amber-500 */
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0b1020;
+        --text: #e5e7eb;
+        --muted: #94a3b8;
+        --link: #60a5fa;
+        --border: #1f2937;
+        --code-bg: #0a0f1a;
+        --code-text: #e5e7eb;
+        --quote: #0f172a;
+      }
+    }
+
+    /* --- Layout --- */
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font: 16px/1.65 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: 72ch;
+      margin: 0 auto;
+      padding: 2rem 1rem 4rem;
+    }
+
+    header.site {
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(to right, transparent, rgba(245, 158, 11, 0.08), transparent);
+    }
+    header.site .inner {
+      max-width: 88ch;
+      margin: 0 auto;
+      padding: 1rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .brand {
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+    nav a {
+      text-decoration: none;
+      color: var(--muted);
+      margin-left: 1rem;
+    }
+    nav a:hover { color: var(--text); }
+
+    /* --- Article --- */
+    article h1 { font-size: clamp(2rem, 4vw, 2.6rem); line-height: 1.15; margin: 1rem 0; }
+    article h2 { font-size: 1.4rem; margin-top: 2rem; }
+    article h3 { font-size: 1.15rem; margin-top: 1.2rem; }
+
+    .meta { color: var(--muted); font-size: 0.95rem; display: flex; flex-wrap: wrap; gap: .6rem 1rem; align-items: center; }
+    .meta .dot { width: 4px; height: 4px; border-radius: 999px; background: var(--muted); display: inline-block; }
+
+    .prose p { margin: 1rem 0; }
+    .prose a { color: var(--link); }
+    .prose a:hover { text-decoration: underline; }
+    .prose img, .prose video { max-width: 100%; height: auto; border-radius: 12px; }
+    .prose blockquote { margin: 1.2rem 0; padding: 1rem 1.2rem; background: var(--quote); border-left: 4px solid var(--accent); border-radius: 8px; }
+    .prose ul, .prose ol { padding-left: 1.25rem; }
+
+    pre, code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    pre { background: var(--code-bg); color: var(--code-text); padding: 1rem; border-radius: 12px; overflow-x: auto; }
+    code.inline { background: rgba(148, 163, 184, 0.2); padding: 0.15rem 0.35rem; border-radius: 6px; }
+
+    .toc {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      background: rgba(148, 163, 184, 0.08);
+      margin: 1.5rem 0 2rem;
+    }
+    .toc h2 { font-size: 1rem; margin: 0 0 .5rem; color: var(--muted); }
+    .toc ul { margin: 0; padding-left: 1rem; }
+    .toc a { text-decoration: none; }
+
+    footer.site {
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: .95rem;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: .25rem .55rem;
+      border: 1px solid var(--border);
+      border-radius: 9999px;
+      font-size: .8rem;
+      color: var(--muted);
+    }
+
+    .skip-link {
+      position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden;
+    }
+    .skip-link:focus { position: static; width: auto; height: auto; padding: .5rem; background: var(--quote); border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  <header class="site" role="banner">
+    <div class="inner">
+      <div class="brand">Your Name</div>
+      <nav aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about/">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content" class="container" role="main">
+    <article itemscope itemtype="https://schema.org/BlogPosting">
+      <header>
+        <p class="badge" itemprop="articleSection">Category</p>
+        <h1 itemprop="headline">Your Post Title</h1>
+        <div class="meta">
+          <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+            <span itemprop="name">Your Name</span>
+          </span>
+          <span class="dot"></span>
+          <time datetime="2025-08-26" itemprop="datePublished">August 26, 2025</time>
+          <span class="dot"></span>
+          <span itemprop="timeRequired">7 min read</span>
+        </div>
+      </header>
+
+      <!-- Optional Table of Contents (auto-generated from h2/h3) -->
+      <aside id="toc" class="toc" aria-label="Table of contents" hidden>
+        <h2>On this page</h2>
+        <ul></ul>
+      </aside>
+
+      <section class="prose" itemprop="articleBody">
+        <p>Intro paragraph. Explain what this post is about and why it matters. Keep it short and inviting.</p>
+
+        <h2 id="background">Background</h2>
+        <p>Some background context. You can add inline code like <code class="inline">pip install foo</code>.</p>
+
+        <h2 id="main-idea">Main idea</h2>
+        <p>Your core points go here. Keep paragraphs short. Use lists if helpful:</p>
+        <ul>
+          <li>Key takeaway one</li>
+          <li>Key takeaway two</li>
+          <li>Key takeaway three</li>
+        </ul>
+
+        <h3 id="example">Example</h3>
+        <pre><code>// code snippet
+function hello() { console.log("Hello, world!"); }
+hello();
+</code></pre>
+
+        <blockquote>
+          <p>Nice, concise quote or callout. Highlight a contrarian insight or important warning.</p>
+        </blockquote>
+
+        <h2 id="wrap-up">Wrap-up</h2>
+        <p>Summarize, add a call-to-action, or point to related posts.</p>
+      </section>
+
+      <hr style="border:0;border-top:1px solid var(--border);margin:2rem 0;" />
+
+      <section aria-label="Post meta">
+        <p class="meta">Tags: <a href="#">tag-one</a>, <a href="#">tag-two</a></p>
+      </section>
+    </article>
+  </main>
+
+  <footer class="site" role="contentinfo">
+    <p>© <span id="year"></span> Your Name · <a href="https://github.com/your-username">GitHub</a> · <a href="mailto:you@example.com">Contact</a></p>
+  </footer>
+
+  <!-- Optional: JSON-LD structured data for better SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Your Post Title",
+    "description": "One-sentence summary of the post.",
+    "image": ["https://your-username.github.io/your-repo/og-image.jpg"],
+    "datePublished": "2025-08-26",
+    "dateModified": "2025-08-26",
+    "author": {"@type": "Person", "name": "Your Name"},
+    "publisher": {"@type": "Person", "name": "Your Name"},
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://your-username.github.io/your-repo/"
+    }
+  }
+  </script>
+
+  <script>
+    // Update copyright year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Build a simple Table of Contents from h2/h3
+    (function buildTOC() {
+      const headings = Array.from(document.querySelectorAll('.prose h2, .prose h3'));
+      if (!headings.length) return;
+      const toc = document.getElementById('toc');
+      const list = toc.querySelector('ul');
+      let hasItems = false;
+
+      headings.forEach(h => {
+        if (!h.id) h.id = h.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g,'-');
+        const li = document.createElement('li');
+        if (h.tagName === 'H3') li.style.marginLeft = '1rem';
+        const a = document.createElement('a');
+        a.href = `#${h.id}`;
+        a.textContent = h.textContent;
+        li.appendChild(a);
+        list.appendChild(li);
+        hasItems = true;
+      });
+
+      if (hasItems) toc.hidden = false;
+    })();
+  </script>
+
+  <!-- Optional: Analytics (drop your GA/umami script here) -->
+</body>
+</html>
+
